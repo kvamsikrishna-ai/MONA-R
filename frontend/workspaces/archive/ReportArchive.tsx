@@ -106,13 +106,21 @@ ReportArchive() {
   // IMAGE URLS
   // ==========================================
 
-  const originalImage =
+const originalImage =
 
-    latestReport.original_image
+  latestReport.original_image
 
-  const heatmapImage =
+    ? `${API_BASE}${latestReport.original_image}`
 
-    latestReport.heatmap_image
+    : null
+
+const heatmapImage =
+
+  latestReport.heatmap_image
+
+    ? `${API_BASE}${latestReport.heatmap_image}`
+
+    : null
 
   // ==========================================
   // MAIN UI

@@ -1,9 +1,11 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-
 
 from fastapi.middleware.cors import (
     CORSMiddleware
+)
+
+from fastapi.staticfiles import (
+    StaticFiles
 )
 
 from backend.app.api.routes.cases import (
@@ -14,25 +16,23 @@ from backend.app.api.routes.reports import (
     router as reports_router
 )
 
-from backend.app.api.routes.reports import (
-    router as reports_router
-)
-from fastapi.staticfiles import (
-    StaticFiles
-)
+# ==========================================
+# FASTAPI APP
+# ==========================================
 
 app = FastAPI()
+
 # ==========================================
-# STATIC PDF STORAGE
+# CORS
 # ==========================================
+
 app.add_middleware(
+
     CORSMiddleware,
 
     allow_origins=[
 
-        "http://localhost:3000",
-
-        "https://YOUR-VERCEL-URL.vercel.app",
+        "*"
     ],
 
     allow_credentials=True,
@@ -42,35 +42,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ==========================================
+# STATIC STORAGE
+# ==========================================
+
 app.mount(
+
     "/reports_storage",
-    StaticFiles(directory="storage/reports"),
+
+    StaticFiles(
+        directory="storage/reports"
+    ),
+
     name="reports_storage"
 )
 
 app.mount(
+
     "/scans",
-    StaticFiles(directory="frontend/public/scans"),
+
+    StaticFiles(
+        directory="frontend/public/scans"
+    ),
+
     name="scans"
-)
-# ==========================================
-# CORS
-# ==========================================
-app.include_router(
-    reports_router
-)
-
-app.add_middleware(
-
-    CORSMiddleware,
-
-    allow_origins=["*"],
-
-    allow_credentials=True,
-
-    allow_methods=["*"],
-
-    allow_headers=["*"],
 )
 
 # ==========================================
@@ -94,6 +89,7 @@ app.include_router(
 def root():
 
     return {
+
         "message":
         "MONA-R Backend Running"
     }
