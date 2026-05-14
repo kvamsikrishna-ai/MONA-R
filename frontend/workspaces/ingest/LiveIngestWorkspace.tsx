@@ -149,17 +149,37 @@ LiveIngestWorkspace({
 
       {/* METRICS */}
 
-      <QueueMetrics
-        totalCases={
-          cases.length
-        }
-        abnormalCases={
-          abnormalCases.length
-        }
-        normalCases={
-          normalCases.length
-        }
-      />
+      <div className="
+        grid
+        grid-cols-3
+        gap-5
+      ">
+
+        <QueueMetrics
+          title="Total Cases"
+          value={cases.length}
+          description="
+            Total studies in queue
+          "
+        />
+
+        <QueueMetrics
+          title="High Priority"
+          value={abnormalCases.length}
+          description="
+            AI flagged urgent studies
+          "
+        />
+
+        <QueueMetrics
+          title="Normal Queue"
+          value={normalCases.length}
+          description="
+            Standard review cases
+          "
+        />
+
+      </div>
 
       {/* FILTERS */}
 

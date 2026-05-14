@@ -39,7 +39,7 @@ ReportSummary({
         <p>
           Patient:
           {" "}
-          {caseItem.patientName}
+          {caseItem.patient_name}
         </p>
 
         <p>

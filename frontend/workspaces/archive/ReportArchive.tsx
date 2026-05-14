@@ -11,6 +11,29 @@ const API_BASE =
   process.env
     .NEXT_PUBLIC_API_URL
 
+// ==========================================
+// REPORT TYPE
+// ==========================================
+
+type ReportItem = {
+
+  id: string
+
+  case_id: string
+
+  impression: string
+
+  pdf_path: string
+
+  approved_by: string
+
+  approved_at: string
+
+  original_image?: string
+
+  heatmap_image?: string
+}
+
 export default function
 ReportArchive() {
 
@@ -56,10 +79,10 @@ ReportArchive() {
   }
 
   // ==========================================
-  // EMPTY STATE
+  // EMPTY
   // ==========================================
 
-  if (reports.length === 0) {
+  if (!reports || reports.length === 0) {
 
     return (
 
@@ -89,10 +112,12 @@ ReportArchive() {
   }
 
   // ==========================================
-  // LATEST REPORT
+  // SAFE REPORT
   // ==========================================
 
-  const latestReport = reports[0]
+  const latestReport =
+
+    reports[0] as ReportItem
 
   // ==========================================
   // PDF URL
@@ -106,21 +131,21 @@ ReportArchive() {
   // IMAGE URLS
   // ==========================================
 
-const originalImage =
+  const originalImage =
 
-  latestReport.original_image
+    latestReport.original_image
 
-    ? `${API_BASE}${latestReport.original_image}`
+      ? `${API_BASE}${latestReport.original_image}`
 
-    : null
+      : null
 
-const heatmapImage =
+  const heatmapImage =
 
-  latestReport.heatmap_image
+    latestReport.heatmap_image
 
-    ? `${API_BASE}${latestReport.heatmap_image}`
+      ? `${API_BASE}${latestReport.heatmap_image}`
 
-    : null
+      : null
 
   // ==========================================
   // MAIN UI
