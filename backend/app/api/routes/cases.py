@@ -1,3 +1,5 @@
+import os
+
 from fastapi import APIRouter
 
 from backend.app.db.database import (
@@ -138,12 +140,16 @@ def approve_case(case_id: str):
     print(pdf_path)
 
     # ======================================
-    # GENERATE PUBLIC PDF URL
+    # SAFE PDF FILENAME
     # ======================================
 
-    pdf_filename = pdf_path.split(
-        "\\"
-    )[-1]
+    pdf_filename = os.path.basename(
+        pdf_path
+    )
+
+    # ======================================
+    # PUBLIC PDF URL
+    # ======================================
 
     pdf_url = (
 
