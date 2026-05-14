@@ -6,6 +6,11 @@ import {
 
 } from "@/hooks/useReports"
 
+const API_BASE =
+
+  process.env
+    .NEXT_PUBLIC_API_URL
+
 export default function
 ReportArchive() {
 
@@ -88,6 +93,26 @@ ReportArchive() {
   // ==========================================
 
   const latestReport = reports[0]
+
+  // ==========================================
+  // PDF URL
+  // ==========================================
+
+  const pdfUrl =
+
+    `${API_BASE}${latestReport.pdf_path}`
+
+  // ==========================================
+  // IMAGE URLS
+  // ==========================================
+
+  const originalImage =
+
+    latestReport.original_image
+
+  const heatmapImage =
+
+    latestReport.heatmap_image
 
   // ==========================================
   // MAIN UI
@@ -213,9 +238,119 @@ ReportArchive() {
           gap-5
         ">
 
+          {/* ORIGINAL */}
 
+          <div
+            className="
+              bg-black
+              border
+              border-zinc-800
+              rounded-2xl
+              overflow-hidden
+            "
+          >
 
+            <div className="
+              p-3
+              border-b
+              border-zinc-800
+            ">
 
+              <p className="
+                text-sm
+                text-zinc-400
+              ">
+                Original Scan
+              </p>
+
+            </div>
+
+            {originalImage ? (
+
+              <img
+                src={originalImage}
+                alt="Original Scan"
+                className="
+                  w-full
+                  h-[420px]
+                  object-contain
+                  bg-black
+                "
+              />
+
+            ) : (
+
+              <div className="
+                h-[420px]
+                flex
+                items-center
+                justify-center
+                text-zinc-600
+                text-sm
+              ">
+                No Original Scan
+              </div>
+
+            )}
+
+          </div>
+
+          {/* HEATMAP */}
+
+          <div
+            className="
+              bg-black
+              border
+              border-zinc-800
+              rounded-2xl
+              overflow-hidden
+            "
+          >
+
+            <div className="
+              p-3
+              border-b
+              border-zinc-800
+            ">
+
+              <p className="
+                text-sm
+                text-zinc-400
+              ">
+                AI Attention Heatmap
+              </p>
+
+            </div>
+
+            {heatmapImage ? (
+
+              <img
+                src={heatmapImage}
+                alt="Heatmap"
+                className="
+                  w-full
+                  h-[420px]
+                  object-contain
+                  bg-black
+                "
+              />
+
+            ) : (
+
+              <div className="
+                h-[420px]
+                flex
+                items-center
+                justify-center
+                text-zinc-600
+                text-sm
+              ">
+                No Heatmap Available
+              </div>
+
+            )}
+
+          </div>
 
         </div>
 
@@ -233,9 +368,7 @@ ReportArchive() {
           </p>
 
           <iframe
-            src={
-              `http://127.0.0.1:8000${latestReport.pdf_path}`
-            }
+            src={pdfUrl}
             className="
               w-full
               h-[900px]

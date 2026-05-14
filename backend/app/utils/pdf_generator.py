@@ -47,6 +47,10 @@ def generate_pdf_report(
     case_data
 ):
 
+    print("\n================================")
+    print("PDF GENERATOR STARTED")
+    print("================================\n")
+
     # ======================================
     # REPORT FILE
     # ======================================
@@ -57,10 +61,12 @@ def generate_pdf_report(
     )
 
     report_path = (
-
-        REPORT_DIR
-        / report_filename
+        REPORT_DIR / report_filename
     )
+
+    print("\nREPORT PATH:\n")
+
+    print(report_path)
 
     # ======================================
     # PDF DOCUMENT
@@ -337,6 +343,12 @@ def generate_pdf_report(
         / heatmap_image
     )
 
+    print("\nORIGINAL IMAGE PATH:\n")
+    print(original_image_path)
+
+    print("\nHEATMAP IMAGE PATH:\n")
+    print(heatmap_image_path)
+
     # ======================================
     # IMAGE TABLE
     # ======================================
@@ -411,6 +423,8 @@ def generate_pdf_report(
                 Spacer(1, 20)
             )
 
+            print("\nIMAGES ADDED SUCCESSFULLY\n")
+
         except Exception as error:
 
             print(
@@ -418,6 +432,10 @@ def generate_pdf_report(
             )
 
             print(error)
+
+    else:
+
+        print("\nIMAGE FILES NOT FOUND\n")
 
     # ======================================
     # FINDINGS
@@ -510,7 +528,10 @@ def generate_pdf_report(
     doc.build(elements)
 
     print(
-        f"\nPDF GENERATED:\n{report_path}\n"
+        f"\nPDF GENERATED SUCCESSFULLY:\n{report_path}\n"
     )
 
-    return str(report_path)
+    # IMPORTANT:
+    # RETURN ONLY FILENAME SAFE PATH
+
+    return report_filename
