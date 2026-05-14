@@ -1,18 +1,19 @@
 import axios from "axios"
 
-const API_BASE =
+const API = axios.create({
 
-  "http://localhost:8000"
+  baseURL:
+    process.env.NEXT_PUBLIC_API_URL
+})
 
-// ==========================================
-// FETCH REPORTS
-// ==========================================
+/* =========================================
+   FETCH REPORTS
+========================================= */
 
 export async function fetchReports() {
 
-  const response = await axios.get(
-
-    `${API_BASE}/reports`
+  const response = await API.get(
+    "/reports"
   )
 
   return response.data

@@ -56,6 +56,25 @@ def get_case(case_id: str):
     return response.data[0]
 
 # ==========================================
+# GET REPORTS
+# ==========================================
+
+@router.get("/reports")
+
+def get_reports():
+
+    response = supabase.table(
+        "reports"
+    ).select("*").order(
+
+        "approved_at",
+        desc=True
+
+    ).execute()
+
+    return response.data
+
+# ==========================================
 # APPROVE CASE
 # ==========================================
 
@@ -113,6 +132,15 @@ def approve_case(case_id: str):
     pdf_path = generate_pdf_report(
         case_data
     )
+
+    print("\nPDF GENERATED:\n")
+
+    print(pdf_path)
+
+    # ======================================
+    # GENERATE PUBLIC PDF URL
+    # ======================================
+
     pdf_filename = pdf_path.split(
         "\\"
     )[-1]
@@ -122,9 +150,9 @@ def approve_case(case_id: str):
         f"/reports_storage/{pdf_filename}"
     )
 
-    print("\nSTEP 4: PDF GENERATED\n")
+    print("\nSTEP 4: PDF URL\n")
 
-    print(pdf_path)
+    print(pdf_url)
 
     # ======================================
     # INSERT REPORT
@@ -156,7 +184,21 @@ def approve_case(case_id: str):
         pdf_url,
 
         "approved_by":
-        "Radiologist"
+        "Radiologist",
+
+        "original_image":
+
+        case_data.get(
+            "original_image",
+            ""
+        ),
+
+        "heatmap_image":
+
+        case_data.get(
+            "heatmap_image",
+            ""
+        )
 
     }).execute()
 
@@ -188,6 +230,10 @@ def approve_case(case_id: str):
 
     print(update_response.data)
 
+    # ======================================
+    # RETURN RESPONSE
+    # ======================================
+
     return {
 
         "message":
@@ -196,7 +242,10 @@ def approve_case(case_id: str):
         "pdf_path":
         pdf_url,
 
-        "data":
+        "report":
+        report_response.data,
+
+        "case":
         update_response.data
     }
 
