@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+
+  margin: 0;
+  padding: 0;
+
+  background: #09090b;
+
+  color: #ffffff;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+/* MAIN DARK THEME */
+
+body {
+
+  background-color: #09090b;
+
+  color: white;
+}
+
+/* PANEL SYSTEM */
+
+.panel {
+
+  background: #18181b;
+
+  border: 1px solid #27272a;
+
+  border-radius: 18px;
+
+  padding: 20px;
+}
+
+/* HEADINGS */
+
+.panel-title {
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  margin-bottom: 16px;
+}
+
+/* INPUTS */
+
+input {
+
+  background: #27272a;
+
+  color: white;
+
+  border: 1px solid #3f3f46;
+
+  border-radius: 10px;
+
+  padding: 10px;
+}
+
+/* BUTTONS */
+
+button {
+
+  border: none;
+
+  border-radius: 10px;
+
+  padding: 10px 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+button:hover {
+
+  opacity: 0.9;
+}
+
+/* IMAGES */
+
+img {
+
+  width: 100%;
+
+  border-radius: 12px;
+
+  display: block;
+}
